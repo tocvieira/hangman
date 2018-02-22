@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+/hangman_old.py
+/rascunho.py
+/divination_game.py
