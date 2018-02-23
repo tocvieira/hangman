@@ -7,7 +7,7 @@ from pygame import mixer
 
 def main():
     print_open_msg()
-    # play_sound()
+    play_sound()
     secret_word = get_secret_wolrd()
 
     successful_letters = starting_successful_letters(secret_word)
@@ -58,8 +58,7 @@ def main():
 
     if win:
         print_victory_message()
-        play__effect_you()
-        play_effect_win()
+
     else:
         print_defeat_message(secret_word)
 
@@ -207,33 +206,14 @@ def get_secret_wolrd():
 
 def play_sound():
     """ Play Music """
-    pass
-
-
-#    mixer.init()
-#    mixer.music.load('music.mp3')
-#    mixer.music.play(-1)
+    mixer.init()
+    mixer.music.load('music.mp3')
+    mixer.music.play(-1)
 
 def play_effect_sound_hit():
     """ Plays a sound for correct attempts """
-    pass
-    # effect = mixer.Sound('hit.wav')
-    # effect.play()
-
-
-def play__effect_you():
-    """ Play StreetFigth Sound: YOU """
-    pass
-    # effect = mixer.Sound('you.mp3')
-    # effect.play()
-
-
-def play_effect_win():
-    """ Play StreetFigth Sound: WIN """
-    pass
-    # effect = mixer.Sound('win.mp3')
-    # effect.play()
-
+    effect = mixer.Sound('hit.wav')
+    effect.play()
 
 if __name__ == "__main__":
     main()
