@@ -1,5 +1,22 @@
 # -*- coding: utf-8 -*-
-""" Just another Python Hangman Game """
+""" Just another Python Hangman Game
+
+The Hangman is a game in which the player has to guess which is the proposed word,
+having as a tip the number of letters and the theme connected to the word. With each wrong
+letter, a part of the body of the hangman is drawn.
+The game ends either with the correctness of the word or with the completion of the body
+parts of the hangman.
+
+Available functions:
+- Only alpha characters are accepted;
+- Repeated attempts are not penalized;
+- Possibility of trying the word in its entirety.
+- Sound Music
+- Sound Effects
+
+Pending implementations: associate a theme with the word.
+
+"""
 
 import random
 from pygame import mixer
