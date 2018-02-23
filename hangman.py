@@ -24,8 +24,6 @@ def main():
 
         if attempt == secret_word:
             print_victory_message()
-            play__effect_you()
-            play_effect_win()
             quit()
 
         elif not str.isalpha(attempt) or len(attempt) > 1 and len(attempt) == 2:
