@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-""" Just another Python Hangman Game.
-Fe
-"""
-
+""" Just another Python Hangman Game """
 
 import random
 from pygame import mixer
 
+
 def main():
     print_open_msg()
-    play_sound()
+    # play_sound()
     secret_word = get_secret_wolrd()
 
     successful_letters = starting_successful_letters(secret_word)
@@ -20,7 +18,7 @@ def main():
     mistakes = 0
     all_attempts = []
 
-    while (not hanged and not win):
+    while not hanged and not win:
 
         attempt = get_attempt(secret_word)
 
@@ -31,19 +29,23 @@ def main():
             quit()
 
         elif not str.isalpha(attempt) or len(attempt) > 1 and len(attempt) == 2:
+            """Non alpha characters and two digits are considered typos. Three characters or more are wrong attempts."""
             print("Digite apenas uma letra!")
             continue
 
         elif attempt in all_attempts:
+            """ Repeated attempts do not lose points """
             print("Você já tentou a letra: {}".format(attempt))
             continue
 
-        elif (attempt in secret_word):
+        elif attempt in secret_word:
+            """ record correct attempts """
             play_effect_sound_hit()
             all_attempts.append(attempt)
             write_correct_attempt(attempt, successful_letters
                                   , secret_word)
         else:
+            """ Record Lose Points and Draw Gallows """
             mistakes += 1
             all_attempts.append(attempt)
             draw_gallows(mistakes)
@@ -54,7 +56,7 @@ def main():
         print(successful_letters
               )
 
-    if (win):
+    if win:
         print_victory_message()
         play__effect_you()
         play_effect_win()
@@ -66,43 +68,43 @@ def draw_gallows(mistakes):
     print("  _______     ")
     print(" |/      |    ")
 
-    if (mistakes == 1):
+    if mistakes == 1:
         print(" |      (_)   ")
         print(" |            ")
         print(" |            ")
         print(" |            ")
 
-    if (mistakes == 2):
+    if mistakes == 2:
         print(" |      (_)   ")
         print(" |      \     ")
         print(" |            ")
         print(" |            ")
 
-    if (mistakes == 3):
+    if mistakes == 3:
         print(" |      (_)   ")
         print(" |      \|    ")
         print(" |            ")
         print(" |            ")
 
-    if (mistakes == 4):
+    if mistakes == 4:
         print(" |      (_)   ")
         print(" |      \|/   ")
         print(" |            ")
         print(" |            ")
 
-    if (mistakes == 5):
+    if mistakes == 5:
         print(" |      (_)   ")
         print(" |      \|/   ")
         print(" |       |    ")
         print(" |            ")
 
-    if (mistakes == 6):
+    if mistakes == 6:
         print(" |      (_)   ")
         print(" |      \|/   ")
         print(" |       |    ")
         print(" |      /     ")
 
-    if (mistakes == 7):
+    if mistakes == 7:
         print(" |      (_)   ")
         print(" |      \|/   ")
         print(" |       |    ")
@@ -149,17 +151,21 @@ def print_defeat_message(secret_word):
 
 
 def write_correct_attempt(attempt, successful_letters, secret_word):
+    """ write the letters found in the correct position """
     index = 0
     for letter in secret_word:
-        if (attempt == letter):
+        if attempt == letter:
             successful_letters[index] = letter
         index += 1
+
 
 def get_attempt(secret_word):
     attempt = input("Digite uma letra ou uma palavra com {} letras:".format(len(secret_word))).upper()
     return attempt
 
+
 def starting_successful_letters(word):
+    """ Initializes the string that records progress """
     return ["_" for letter in word]
 
 
@@ -186,43 +192,48 @@ def print_open_msg():
     print("Desenvolvido por Thiago Vieira especialmente para seu filho João Lucas\n")
 
 
-
-
-
 def get_secret_wolrd():
-
+    """ Take a random word in the words.txt file """
     words = []
     with open("words.txt", "r") as file:
         for line in file:
             line = line.strip()
             words.append(line)
 
-
-
     number = random.randrange(0, len(words))
     secret_word = words[number].upper()
     return secret_word
 
+
 def play_sound():
-    mixer.init()
-    mixer.music.load('music.mp3')
-    mixer.music.play(-1)
+    """ Play Music """
+    pass
+
+
+#    mixer.init()
+#    mixer.music.load('music.mp3')
+#    mixer.music.play(-1)
 
 def play_effect_sound_hit():
-    effect = mixer.Sound('hit.wav')
-    effect.play()
+    """ Plays a sound for correct attempts """
+    pass
+    # effect = mixer.Sound('hit.wav')
+    # effect.play()
+
 
 def play__effect_you():
+    """ Play StreetFigth Sound: YOU """
     pass
-    #effect = mixer.Sound('you.mp3')
-    #effect.play()
+    # effect = mixer.Sound('you.mp3')
+    # effect.play()
+
 
 def play_effect_win():
+    """ Play StreetFigth Sound: WIN """
     pass
-    #effect = mixer.Sound('win.mp3')
-    #effect.play()
+    # effect = mixer.Sound('win.mp3')
+    # effect.play()
 
 
 if __name__ == "__main__":
     main()
-
