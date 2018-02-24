@@ -13,19 +13,23 @@ Available functions:
 - Possibility of trying the word in its entirety.
 - Sound Music
 - Sound Effects
-
-Pending implementations: associate a theme with the word.
+- To get a hint type: dica
 
 """
 
 import random
+import ast
 from pygame import mixer
 
 
 def main():
     print_open_msg()
     play_sound()
-    secret_word = get_secret_wolrd()
+    # secret_word = get_secret_word()
+    words_and_hints = random.choice(get_secret_word_and_hint())
+    secret_word = words_and_hints[0]
+    secret_word = secret_word.upper()
+    hint = words_and_hints[1]
 
     successful_letters = starting_successful_letters(secret_word)
     print(successful_letters)
@@ -42,6 +46,10 @@ def main():
         if attempt == secret_word:
             print_victory_message()
             quit()
+
+        elif attempt == "DICA":
+            print("\n A dica é: {}\n".format(hint))
+            continue
 
         elif not str.isalpha(attempt) or len(attempt) > 1 and len(attempt) == 2:
             """Non alpha characters and two digits are considered typos. Three characters or more are wrong attempts."""
@@ -184,40 +192,57 @@ def starting_successful_letters(word):
 
 
 def print_open_msg():
-    print("       _______________         ")
-    print("      /               \       ")
-    print("     /                 \      ")
-    print("   //                   \/\  ")
-    print("   \|   XXXX     XXXX   | /   ")
-    print("    |   XXXX     XXXX   |/     ")
-    print("    |   XXX       XXX   |      ")
-    print("    |                   |      ")
-    print("    \__      XXX      __/     ")
-    print("      |\     XXX     /|       ")
-    print("      | |           | |        ")
-    print("      | I I I I I I I |        ")
-    print("      |  I I I I I I  |        ")
-    print("      \_             _/       ")
-    print("        \_         _/         ")
-    print("          \_______/           ")
+
+    print('            |/|')
+    print('            |/|')
+    print('            |/|')
+    print('            |/|')
+    print('            |/|')
+    print('            |/|')
+    print('            |/| /¯) ')
+    print('            |/|/\/')
+    print('            |/|\/')
+    print('           (¯¯¯)')
+    print('           (¯¯¯)')
+    print('           (¯¯¯)')
+    print('           (¯¯¯)')
+    print('           (¯¯¯)')
+    print('           /¯¯/\ ')
+    print('          / ,^./\ ')
+    print('         / /   \/\ ')
+    print('        / /     \/\ ')
+    print('       ( (       )/) ')
+    print('       | |       |/| ')
+    print('       | |       |/|')
+    print('       | |       |/|')
+    print('       ( (       )/)')
+    print('        \ \     / / ')
+    print("         \ `---' /  ")
+    print('          `-----'' ')
     print("*********************************")
     print("***Bem vindo ao jogo da Forca!***")
     print("*********************************\n")
     print("Desenvolvido por Thiago Vieira especialmente para seu filho João Lucas\n")
 
 
-def get_secret_wolrd():
-    """ Take a random word in the words.txt file """
-    words = []
-    with open("words.txt", "r") as file:
-        for line in file:
-            line = line.strip()
-            words.append(line)
+# def get_secret_word():
+#     """ Take a random word in the words.txt file """
+#     words = []
+#     with open("words.txt", "r") as file:
+#         for line in file:
+#             line = line.strip()
+#             words.append(line)
+# 
+#     number = random.randrange(0, len(words))
+#     secret_word = words[number].upper()
+#     return secret_word
 
-    number = random.randrange(0, len(words))
-    secret_word = words[number].upper()
-    return secret_word
+def get_secret_word_and_hint():
 
+    with open("words_and_hints.txt", "r") as words_list:
+        file = words_list.read()
+        word_and_hint = ast.literal_eval(file)
+        return word_and_hint
 
 def play_sound():
     """ Play Music """
