@@ -39,7 +39,7 @@ def write_csv(word_and_hint):
 def creating_csv():
     with open("words_and_hints.csv", "w") as new_file:
         csv_writerow = csv.writer(new_file, delimiter='|')
-        amor = [amor, sentimento]
+        amor = ['amor', 'sentimento']
         csv_writerow.writerow(amor)
     main()
 

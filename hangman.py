@@ -110,7 +110,6 @@ def main():
 
     print_open_msg()
     play_sound()
-    # secret_word = get_secret_word()
     word_and_hint = random.choice(get_secret_word_and_hint())
     secret_word, hint = word_and_hint
     secret_word = secret_word.upper()
@@ -232,19 +231,6 @@ def print_open_msg():
     print("*********************************\n")
     print("Desenvolvido por Thiago Vieira especialmente para "
           "seu filho João Lucas\n")
-
-
-# def get_secret_word():
-#     """ Take a random word in the words.txt file """
-#     words = []
-#     with open("words.txt", "r") as file:
-#         for line in file:
-#             line = line.strip()
-#             words.append(line)
-#
-#     number = random.randrange(0, len(words))
-#     secret_word = words[number].upper()
-#     return secret_word
 
 
 def get_secret_word_and_hint():
