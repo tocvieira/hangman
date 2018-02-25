@@ -33,6 +33,76 @@ DEFAULT_WORDS_AND_HINTS = [
 ]
 
 
+HANGING_LACE = r"""{0}     |/|
+{0}     |/|
+{0}     |/|
+{0}     |/|
+{0}     |/|
+{0}     |/|
+{0}     |/| /¯)
+{0}     |/|/\/
+{0}     |/|\/
+{0}    (¯¯¯)
+{0}    (¯¯¯)
+{0}    (¯¯¯)
+{0}    (¯¯¯)
+{0}    (¯¯¯)
+{0}    /¯¯/\
+{0}   / ,^./\
+{0}  / /   \/\
+{0} / /     \/\
+{0}( (       )/)
+{0}| |       |/|
+{0}| |       |/|
+{0}| |       |/|
+{0}( (       )/)
+{0} \ \     / /
+{0}  \ `---' /
+{0}   `-----''"""
+
+
+HANGING_MAN = """\
+  _______
+ |/      |
+ |      {0}
+ |      {1}{2}{3}
+ |       {4}
+ |      {5} {6}
+ |
+_|___
+"""
+
+
+SKULL = r"""{0}    _______________
+{0}   /               \
+{0}  /                 \
+{0}//                   \/\
+{0}\|   XXXX     XXXX   | /
+{0} |   XXXX     XXXX   |/
+{0} |   XXX       XXX   |
+{0} |                   |
+{0} \__      XXX      __/
+{0}   |\     XXX     /|
+{0}   | |           | |
+{0}   | I I I I I I I |
+{0}   |  I I I I I I  |
+{0}   \_             _/
+{0}     \_         _/
+{0}       \_______/"""
+
+
+TROPHY = r"""{0}  ___________
+{0} '._==_==_=_.'
+{0} .-\\:      /-.
+{0}| (|:.     |) |
+{0} '-|:.     |-'
+{0}   \\::.    /
+{0}    '::. .'
+{0}      ) (
+{0}    _.' '._
+{0}   '-------'"""
+
+
 def main():
     print_open_msg()
     play_sound()
@@ -99,89 +169,25 @@ def main():
 
 
 def draw_gallows(mistakes):
-    print("  _______     ")
-    print(" |/      |    ")
-
-    if mistakes == 1:
-        print(" |      (_)   ")
-        print(" |            ")
-        print(" |            ")
-        print(" |            ")
-
-    if mistakes == 2:
-        print(" |      (_)   ")
-        print(" |      \     ")
-        print(" |            ")
-        print(" |            ")
-
-    if mistakes == 3:
-        print(" |      (_)   ")
-        print(" |      \|    ")
-        print(" |            ")
-        print(" |            ")
-
-    if mistakes == 4:
-        print(" |      (_)   ")
-        print(" |      \|/   ")
-        print(" |            ")
-        print(" |            ")
-
-    if mistakes == 5:
-        print(" |      (_)   ")
-        print(" |      \|/   ")
-        print(" |       |    ")
-        print(" |            ")
-
-    if mistakes == 6:
-        print(" |      (_)   ")
-        print(" |      \|/   ")
-        print(" |       |    ")
-        print(" |      /     ")
-
-    if mistakes == 7:
-        print(" |      (_)   ")
-        print(" |      \|/   ")
-        print(" |       |    ")
-        print(" |      / \   ")
-
-    print(" |            ")
-    print("_|___         ")
-    print()
+    print(HANGING_MAN
+          .format("(_)" if mistakes > 0 else '',
+                  "\\"  if mistakes > 1 else '',
+                  "|"   if mistakes > 2 else '',
+                  "/"   if mistakes > 3 else '',
+                  "|"   if mistakes > 4 else '',
+                  "/"   if mistakes > 5 else '',
+                  "\\"  if mistakes > 6 else ''))
 
 
 def print_victory_message():
     print("Parabéns, você ganhou!")
-    print("       ___________      ")
-    print("      '._==_==_=_.'     ")
-    print("      .-\\:      /-.    ")
-    print("     | (|:.     |) |    ")
-    print("      '-|:.     |-'     ")
-    print("        \\::.    /      ")
-    print("         '::. .'        ")
-    print("           ) (          ")
-    print("         _.' '._        ")
-    print("        '-------'       ")
+    print(TROPHY.format(5 * ' '))
 
 
 def print_defeat_message(secret_word):
     print("Puxa, você foi enforcado!")
     print("A palavra era {}".format(secret_word))
-    print("    _______________         ")
-    print("   /               \       ")
-    print("  /                 \      ")
-    print("//                   \/\  ")
-    print("\|   XXXX     XXXX   | /   ")
-    print(" |   XXXX     XXXX   |/     ")
-    print(" |   XXX       XXX   |      ")
-    print(" |                   |      ")
-    print(" \__      XXX      __/     ")
-    print("   |\     XXX     /|       ")
-    print("   | |           | |        ")
-    print("   | I I I I I I I |        ")
-    print("   |  I I I I I I  |        ")
-    print("   \_             _/       ")
-    print("     \_         _/         ")
-    print("       \_______/           ")
+    print(SKULL.format(''))
 
 
 def write_correct_attempt(attempt, successful_letters, secret_word):
@@ -205,32 +211,7 @@ def starting_successful_letters(word):
 
 def print_open_msg():
 
-    print('            |/|')
-    print('            |/|')
-    print('            |/|')
-    print('            |/|')
-    print('            |/|')
-    print('            |/|')
-    print('            |/| /¯) ')
-    print('            |/|/\/')
-    print('            |/|\/')
-    print('           (¯¯¯)')
-    print('           (¯¯¯)')
-    print('           (¯¯¯)')
-    print('           (¯¯¯)')
-    print('           (¯¯¯)')
-    print('           /¯¯/\ ')
-    print('          / ,^./\ ')
-    print('         / /   \/\ ')
-    print('        / /     \/\ ')
-    print('       ( (       )/) ')
-    print('       | |       |/| ')
-    print('       | |       |/|')
-    print('       | |       |/|')
-    print('       ( (       )/)')
-    print('        \ \     / / ')
-    print("         \ `---' /  ")
-    print('          `-----'' ')
+    print(HANGING_LACE.format(7 * ' '))
     print("*********************************")
     print("***Bem vindo ao jogo da Forca!***")
     print("*********************************\n")
