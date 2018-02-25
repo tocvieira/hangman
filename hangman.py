@@ -18,7 +18,7 @@ Available functions:
 - To get a hint type: dica
 """
 
-import ast
+import csv
 import pathlib
 import random
 
@@ -28,7 +28,7 @@ from pygame import mixer
 MUSIC_FILE = pathlib.Path('music.mp3')
 HIT_FILE = pathlib.Path('hit.wav')
 WORDS_FILE = pathlib.Path('words.txt')
-WORDS_AND_HINTS_FILE = pathlib.Path('words_and_hints.txt')
+WORDS_AND_HINTS_FILE = pathlib.Path('words_and_hints.csv')
 
 DEFAULT_WORDS_AND_HINTS = [
     ('bicicleta', 'brinquedo'),
@@ -253,8 +253,9 @@ def get_secret_word_and_hint():
 
     if WORDS_AND_HINTS_FILE.is_file():
         with WORDS_AND_HINTS_FILE.open("rt") as words_and_hints_file:
-            file_content = words_and_hints_file.read()
-            words_and_hints = ast.literal_eval(file_content)
+            csv_reader = csv.DictReader(words_and_hints_file, delimiter='|')
+            for entry in csv_reader:
+                words_and_hints.append((entry['word'], entry['hint']))
     elif WORDS_AND_HINTS_FILE.is_file():
         with WORDS_AND_HINTS_FILE.open("rt") as words_file:
             words_and_hints = [(word, '')
