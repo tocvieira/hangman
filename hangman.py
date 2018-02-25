@@ -19,17 +19,29 @@ Available functions:
 
 import random
 import ast
+import pathlib
 from pygame import mixer
+
+
+MUSIC_FILE = pathlib.Path('music.mp3')
+HIT_FILE = pathlib.Path('hit.wav')
+WORDS_FILE = pathlib.Path('words.txt')
+WORDS_AND_HINTS_FILE = pathlib.Path('words_and_hints.txt')
+
+DEFAULT_WORDS_AND_HINTS = [
+    ('bicicleta', 'brinquedo'),
+]
 
 
 def main():
     print_open_msg()
     play_sound()
     # secret_word = get_secret_word()
-    words_and_hints = random.choice(get_secret_word_and_hint())
-    secret_word = words_and_hints[0]
+    word_and_hint = random.choice(get_secret_word_and_hint())
+    secret_word, hint = word_and_hint
     secret_word = secret_word.upper()
-    hint = words_and_hints[1]
+    if not hint:
+        hint = 'sem dicas =/'
 
     successful_letters = starting_successful_letters(secret_word)
     print(successful_letters)
@@ -238,21 +250,36 @@ def print_open_msg():
 #     return secret_word
 
 def get_secret_word_and_hint():
+    words_and_hints = []
 
-    with open("words_and_hints.txt", "r") as words_list:
-        file = words_list.read()
-        word_and_hint = ast.literal_eval(file)
-        return word_and_hint
+    if WORDS_AND_HINTS_FILE.is_file():
+        with WORDS_AND_HINTS_FILE.open("rt") as words_and_hints_file:
+            file_content = words_and_hints_file.read()
+            words_and_hints = ast.literal_eval(file_content)
+    elif WORDS_AND_HINTS_FILE.is_file():
+        with WORDS_AND_HINTS_FILE.open("rt") as words_file:
+            words_and_hints = [(word, '')
+                               for raw_line in words_file.readlines()
+                               for word in (raw_line.strip(), )
+                               if word]
+    else:
+        words_and_hints = DEFAULT_WORDS_AND_HINTS
+
+    return words_and_hints
 
 def play_sound():
     """ Play Music """
+    if not MUSIC_FILE.is_file():
+        return
     mixer.init()
-    mixer.music.load('music.mp3')
+    mixer.music.load(str(MUSIC_FILE))
     mixer.music.play(-1)
 
 def play_effect_sound_hit():
     """ Plays a sound for correct attempts """
-    effect = mixer.Sound('hit.wav')
+    if not HIT_FILE.is_file():
+        return
+    effect = mixer.Sound(str(HIT_FILE))
     effect.play()
 
 if __name__ == "__main__":
