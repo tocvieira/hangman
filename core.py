@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+""" Hangman Game Menu
+You can play the game or configure new words and hints
+"""
+
 import hangman
 import configure
 

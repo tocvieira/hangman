@@ -12,7 +12,7 @@ def get_new_words_and_hints():
     over = False
     while not over:
         word_and_hint = []
-        new_word = input("\nDigite uma nova palavra:").strip()
+        new_word = input("\nDigite uma nova palavra:")
         if not str.isalpha(new_word):
             print("\nError: Só letras são aceitas. \n")
             continue
@@ -41,11 +41,11 @@ def write_csv(word_and_hint):
 
 
 def creating_csv():
-    """Creating words_and_hints.csv with one word"""
+    """Creating words_and_hints.csv"""
     with open("words_and_hints.csv", "w") as new_file:
         csv_writerow = csv.writer(new_file, delimiter='|')
-        amor = ['amor', 'sentimento']
-        csv_writerow.writerow(amor)
+        frist_word = ['word', 'hint']
+        csv_writerow.writerow(frist_word)
     main()
 
 def main():
